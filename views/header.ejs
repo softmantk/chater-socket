@@ -9,19 +9,39 @@
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
+        <script>
         $(function () {
+            $("#msg").focus();
             var socket = io();
             $('#form-chat').submit(function(){
                 socket.emit('chat message', $('#msg').val());
                 return false;
             });
+
             socket.on('chat message', function(msg){
-                $('.chat-container').append("<div class='post odd'>"+msg+"</div>");
+                var html_e = "<div class='post odd'>" +
+                                    "<p>"+msg+"</p>" +
+                                    "<div class='time'>"
+                                        <%var time = new Date().toLocaleString()%>
+                                        +" <%= time %>"
+                                    +"</div>"
+                                    +"<div class='author'>"+
+                                    "Posted By @"+ <%if(user) {%>
+                                    " <%=user.username%>"
+                                     <%}%>
+                                +"</div>" +
+                             "</div>"
+                //console.log(html_e)
+                $('#msg').val("");
+                $("#msg").focus();
+
+
+                $('.chatBox').append(html_e);
+                var divq = $(".chatBox");
+                divq.scrollTop(divq.prop('scrollHeight'));
             });
         });
     </script>
-
 </head>
 <body>
 <div id='main' class="container">

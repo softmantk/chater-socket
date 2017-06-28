@@ -7,46 +7,27 @@
 
     <div class="chat-container">
 
-   <!-- <% for (var chat in chats) { %>
- /**   <% if (chats.hasOwnProperty(chat)) { %>
-
-    <div class="post odd">
-        <p>
-            <%= chats[chat].text %>
-        </p>
         <div class="chatBox">
-            <div class="time">
-                <%var time = new Date(chats[chat].created_at).toLocaleString()%>
-                <%= time %>
-            </div>
-            <div class="author">
-                Posted By @ <%= chats[chat].created_by %> */
-            </div>
+
         </div>
+
+        <form action="#" id="form-chat">
+                <% if(user) { %>
+                <h4>
+                    <%= user.username %> says, </h4>
+            <textarea id="msg" required class="form-control" maxlength="200" rows="3" placeholder="Say something"
+                      name="text"></textarea>
+            <input class="btn submit-btn pull-right" type="submit" value="Send!"/>
+                <%}else{%>
+                    <h1 style="text-align: center   "> Login First !</h1>
+                <%}%>
+        </form>
+
+
     </div>
-    <% }} %>
-    </div>-->
-
-<!--
-    <form action="/posts" method="post" id="form-chat">
--->
-    <form action="#" id="form-chat">
-        <%if(user) { %>
-        <h4>    <%=user.username %> says, </h4>
-
-        <textarea  id="msg" required class="form-control" maxlength="200" rows="3" placeholder="Say something" name="text"></textarea>
-        <input class="btn submit-btn pull-right"  type="submit" value="Send!" />
-        <%}%>
+    <script>
 
 
-    </form>
-
-
-</div>
-<script>
-    var div = $(".chat-container");
-    div.scrollTop(div.prop('scrollHeight'));
-
-</script>
-</body>
-</html>
+    </script>
+    </body>
+    </html>
