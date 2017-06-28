@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Chirp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            $('#form-chat').submit(function(){
+                socket.emit('chat message', $('#msg').val());
+                return false;
+            });
+            socket.on('chat message', function(msg){
+                $('.chat-container').append("<div class='post odd'>"+msg+"</div>");
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div id='main' class="container">
+    <nav class="navbar-fluid navbar-default navbar-fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/"> Chat-er </a>
+            <p class="navbar-text"> </p>
+
+            <% if(user) { %>
+            <p class="navbar-right navbar-text"><a href="/auth/signout" >Logout</a></p>
+            <%} else {%>
+
+            <p class="navbar-right navbar-text"><a href="/login">Login</a> or <a href="/signup">Register</a></p>
+            <%}%>
+
+<!--
+            <p class="navbar-right navbar-text">Signed in as <%= typeof current_user!='undefined' ? current_user : '' %>
+-->
+
+            </p>
+        </div>
+    </nav>
